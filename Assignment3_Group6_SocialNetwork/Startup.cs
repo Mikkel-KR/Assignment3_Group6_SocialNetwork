@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Assignment3_Group6_SocialNetwork.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace Assignment3_Group6_SocialNetwork
 {
@@ -23,6 +25,14 @@ namespace Assignment3_Group6_SocialNetwork
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<SocialNetworkDatabaseSettings>(
+                Configuration.GetSection(nameof(SocialNetworkDatabaseSettings)));
+
+            services.AddSingleton<ISocialNetworkDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<SocialNetworkDatabaseSettings>>().Value);
+
+            //Add singleton services
+
             services.AddControllersWithViews();
         }
 
