@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Assignment3_Group6_SocialNetwork.Models;
 using MongoDB.Driver;
@@ -21,6 +22,9 @@ namespace Assignment3_Group6_SocialNetwork.Services
 
         public List<User> GetAll() => 
             _users.Find(user => true).ToList();
+
+        public List<User> GetAll(Expression<Func<User, bool>> filter) =>
+            _users.Find(filter).ToList();
 
         public User Get(string id) =>
             _users.Find(user => user.Id == id).FirstOrDefault();
@@ -44,7 +48,7 @@ namespace Assignment3_Group6_SocialNetwork.Services
     public interface IUserService
     {
         public List<User> GetAll();
-
+        public List<User> GetAll(Expression<Func<User, bool>> filter);
         public User Get(string id);
 
         public User Create(User user);

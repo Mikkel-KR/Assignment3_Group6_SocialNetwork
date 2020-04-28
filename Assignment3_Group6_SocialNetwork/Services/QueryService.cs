@@ -29,21 +29,32 @@ namespace Assignment3_Group6_SocialNetwork.Services
             //    followingUsers.Add(_userService.Get(followingUserId));
             //}
 
-            var followingUsers = _userService.GetAll().FindAll(user => thisUser.FollowingUserIds.Contains(user.Id));
+            var followingUsers = _userService.GetAll(user => thisUser.FollowingUserIds.Contains(user.Id));
 
             var circleIds = thisUser.Circles.Select(circle => circle.Id).ToList();
 
-            //var relevantPosts = followingUsers.Select(user => user.Posts).Where(posts =>
-            //    posts.Where(post => post.IsPublic || circleIds.Contains(post.CircleId)));
+            foreach(var followingUser in followingUsers)
+            {
+                //Add Posts
+                feedPosts.AddRange(followingUser.Posts.Where(post => post.IsPublic || circleIds.Contains(post.CircleId)));
+            }
 
-            //var relevantPosts = followingUsers.Select(user => user.Posts).Where(user =>
-            //    user.Posts.Where(post => (post.IsPublic || circleIds.Contains(post.CircleId)))).Select(user => user.Posts);
-
-            return feedPosts;
+            return feedPosts.OrderByDescending(post => post.CreationTime).ToList();
         }
 
         public List<Post> GetWall(string ownerId, string guestId)
         {
+            List<Post> wallPosts = new List<Post>();
+
+            var owner = _userService.Get(ownerId);
+
+            if (ownerId == guestId)
+                return owner.Posts;
+
+            var guest = _userService.Get(guestId);
+            var guestCircleIds = guest.Circles.Select(circle => circle.Id).ToList();
+
+            return owner.Posts.Where(post => post.IsPublic || guestCircleIds.Contains(post.CircleId)).ToList();
 
         }
     }
