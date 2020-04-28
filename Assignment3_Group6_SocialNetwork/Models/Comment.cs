@@ -7,17 +7,13 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Assignment3_Group6_SocialNetwork.Models
 {
-    public class Post
+    public class Comment
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public string Type { get; set; }
         public string Content { get; set; }
-        public bool IsPublic { get; set; }
-        public string CircleId { get; set; }
         public string AuthorId { get; set; }
         public DateTime CreationTime { get; set; }
-        public List<Comment> Comments { get; set; }
     }
 }

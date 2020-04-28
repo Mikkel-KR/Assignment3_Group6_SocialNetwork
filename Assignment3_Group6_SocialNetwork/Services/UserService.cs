@@ -7,7 +7,7 @@ using MongoDB.Driver;
 
 namespace Assignment3_Group6_SocialNetwork.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IMongoCollection<User> _users;
 
@@ -19,7 +19,7 @@ namespace Assignment3_Group6_SocialNetwork.Services
             _users = database.GetCollection<User>(settings.UsersCollectionName);
         }
 
-        public List<User> Get() => 
+        public List<User> GetAll() => 
             _users.Find(user => true).ToList();
 
         public User Get(string id) =>
@@ -39,5 +39,20 @@ namespace Assignment3_Group6_SocialNetwork.Services
 
         public void Remove(string id) =>
             _users.DeleteOne(user => user.Id == id);
+    }
+
+    public interface IUserService
+    {
+        public List<User> GetAll();
+
+        public User Get(string id);
+
+        public User Create(User user);
+
+        public void Update(string id, User userIn);
+
+        public void Remove(User userIn);
+
+        public void Remove(string id);
     }
 }
