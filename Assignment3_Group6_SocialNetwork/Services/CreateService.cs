@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Assignment3_Group6_SocialNetwork.Models;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace Assignment3_Group6_SocialNetwork.Services
 {
@@ -61,6 +62,24 @@ namespace Assignment3_Group6_SocialNetwork.Services
             };
             user.Posts.Add(post);
             _userService.Update(user.Id, user);
+            return true;
+        }
+
+        public bool CreateCircle(string ownerId, string circleName, List<string> usersToAddToCircle)
+        {
+            var user = _userService.Get(ownerId);
+            
+            if (user == null)
+                return false;
+
+            user.Circles.Add(new Circle()
+            {
+                CircleName = circleName,
+                MemberIds = usersToAddToCircle
+            });
+
+            _userService.Update(ownerId, user);
+            
             return true;
         }
     }

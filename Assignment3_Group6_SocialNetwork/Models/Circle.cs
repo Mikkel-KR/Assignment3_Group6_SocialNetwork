@@ -13,7 +13,6 @@ namespace Assignment3_Group6_SocialNetwork.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public string CircleName { get; set; }
-        public string OwnerId { get; set; }
         public List<string> MemberIds { get; set; }
     }
 }
