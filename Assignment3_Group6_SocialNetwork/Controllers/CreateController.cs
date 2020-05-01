@@ -73,10 +73,8 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
 
         public IActionResult CreateComment(string postAuthorId, string postId, string commentAuthorId)
         {
-            var comment = new Comment();
-            var vm = new CommentViewModel()
+           var vm = new CommentViewModel()
             {
-                Comment = comment,
                 CommentAuthorId = commentAuthorId,
                 PostAuthorId = postAuthorId,
                 PostId = postId

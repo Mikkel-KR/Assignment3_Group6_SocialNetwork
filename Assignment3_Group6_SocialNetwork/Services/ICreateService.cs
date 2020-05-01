@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Assignment3_Group6_SocialNetwork.Services
 {
-    interface ICreateService
+    public interface ICreateService
     {
         bool CreateComment(string postAuthorId, string postId, string commentAuthorId, string comment);
 
