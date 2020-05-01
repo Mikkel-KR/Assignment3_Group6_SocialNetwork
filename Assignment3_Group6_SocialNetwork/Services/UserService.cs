@@ -44,19 +44,4 @@ namespace Assignment3_Group6_SocialNetwork.Services
         public void Remove(string id) =>
             _users.DeleteOne(user => user.Id == id);
     }
-
-    public interface IUserService
-    {
-        public List<User> GetAll();
-        public List<User> GetAll(Expression<Func<User, bool>> filter);
-        public User Get(string id);
-
-        public User Create(User user);
-
-        public void Update(string id, User userIn);
-
-        public void Remove(User userIn);
-
-        public void Remove(string id);
-    }
 }
