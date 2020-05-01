@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Assignment3_Group6_SocialNetwork.Models;
+using Assignment3_Group6_SocialNetwork.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,8 @@ namespace Assignment3_Group6_SocialNetwork
                 sp.GetRequiredService<IOptions<SocialNetworkDatabaseSettings>>().Value);
 
             //Add singleton services
+            services.AddSingleton<IUserService, UserService>();
+            services.AddScoped<IQueryService, QueryService>();
 
             services.AddControllersWithViews();
         }

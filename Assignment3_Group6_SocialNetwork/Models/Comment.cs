@@ -14,6 +14,7 @@ namespace Assignment3_Group6_SocialNetwork.Models
         public string Id { get; set; }
         public string Content { get; set; }
         public string AuthorId { get; set; }
+        public string AuthorName { get; set; }
         public DateTime CreationTime { get; set; }
     }
 }

@@ -8,11 +8,13 @@ namespace Assignment3_Group6_SocialNetwork.ViewModels
 {
     public class FeedViewModel
     {
-        public FeedViewModel(List<Post> feed)
+        public FeedViewModel(List<Post> feed, User loggedInUser)
         {
             FeedPosts = feed;
+            LoggedInUser = loggedInUser;
         }
 
         public List<Post> FeedPosts { get; set; }
+        public User LoggedInUser { get; set; }
     }
 }
