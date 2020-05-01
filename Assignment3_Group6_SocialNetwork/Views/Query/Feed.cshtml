@@ -49,16 +49,17 @@
                     @foreach (var comment in feedPost.Comments)
                     {
 
-                        <li class="border"><i>@comment.Content</i> <br/> 
-                           <span style="font-size: 12px" class="font-weight-light">
-                               Created: @comment.CreationTime.ToString("F") <br />
-                               Author: @comment.AuthorName
-                           </span>
+                        <li class="border">
+                            <i>@comment.Content</i> <br />
+                            <span style="font-size: 12px" class="font-weight-light">
+                                Created: @comment.CreationTime.ToString("F") <br />
+                                Author: @comment.AuthorName
+                            </span>
                         </li>
-                                @*<li style="font-size: 10px"><span class="font-weight-light">Created: @comment.CreationTime.ToString("F")</span></li>*@
-                    }
+                        @*<li style="font-size: 10px"><span class="font-weight-light">Created: @comment.CreationTime.ToString("F")</span></li>*@
+                    }i
                 </ul>
-                <a asp-controller="Create" asp-action="Index">Add comment</a> @* Skal udskiftes med Create/PublishComment *@
+                <a asp-controller="Create" asp-action="Index" asp-route="@feedPost.Id">Add comment</a> @* Skal udskiftes med Create/PublishComment *@
             </td>
         </tr>
     }

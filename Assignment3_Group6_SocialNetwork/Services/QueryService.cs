@@ -36,7 +36,7 @@ namespace Assignment3_Group6_SocialNetwork.Services
             foreach(var followingUser in followingUsers)
             {
                 //Add Posts
-                feedPosts.AddRange(followingUser.Posts.Where(post => post.IsPublic || circleIds.Contains(post.CircleId)));
+                feedPosts.AddRange(followingUser.Posts.Where(post => post.CircleId.ToLower() == "public" || circleIds.Contains(post.CircleId)));
             }
 
             return feedPosts.OrderByDescending(post => post.CreationTime).ToList();
@@ -54,7 +54,8 @@ namespace Assignment3_Group6_SocialNetwork.Services
             var guest = _userService.Get(guestId);
             var guestCircleIds = guest.Circles.Select(circle => circle.Id).ToList();
 
-            return owner.Posts.Where(post => post.IsPublic || guestCircleIds.Contains(post.CircleId)).ToList();
+            return owner.Posts.Where(post => post.CircleId.ToLower() == "public" || guestCircleIds.Contains(post.CircleId))
+                .OrderByDescending(post => post.CreationTime).ToList();
 
         }
     }

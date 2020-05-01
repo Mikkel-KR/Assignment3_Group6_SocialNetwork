@@ -33,5 +33,26 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        // SEEDING:
+
+        public IActionResult PopulateDatabase()
+        {
+            //Deleting everything in database before populating the database
+            
+            /***************************************************************/
+
+            
+
+            return View("Index");
+        }
+
+        public IActionResult ClearDatabase()
+        {
+            
+            
+
+            return View("Index");
+        }
     }
 }

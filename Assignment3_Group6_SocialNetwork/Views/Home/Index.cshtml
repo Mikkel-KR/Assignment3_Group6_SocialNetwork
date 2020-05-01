@@ -3,6 +3,16 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Get Started Using The Social Network System</h1>
+    <p>Press the button to populate the database</p>
+    <p style="font-size:.4rem">This action resets database before populating it</p>
+    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="PopulateDatabase">Populate Database</a>
+</div>
+
+<hr />
+<hr />
+
+<div class="text-center">
+    <p>Press the button to clear the database</p>
+    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="ClearDatabase">Clear Database</a>
 </div>

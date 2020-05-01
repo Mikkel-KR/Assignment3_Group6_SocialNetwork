@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Query Data</h1>
+<h5>Choose the desired view...</h5>
+
+<div>
+    <br />
+    <h6><b>Query: Feed</b></h6>
+    <form asp-action="Feed" method="get">
+        <div class="form-group">
+            <label class="control-label">Logged-in-user-id:</label>
+            <input type="text" name="logged_in_user_id" class="form-control col-md-6"/>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </form>
+
+    <br />
+    <h6><b>Query: Wall</b></h6>
+    <form asp-action="Wall" method="get">
+        <div class="form-group">
+            <label class="control-label">User_id (Owner)</label>
+            <input type="text" name="user_id" class="form-control col-md-6"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label">User_id (Guest)</label>
+            <input type="text" name="guest_id" class="form-control col-md-6"/>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </form>
+    <br />
+    <h6><b>Help Request Statistics - All Courses</b></h6>
+    <form asp-action="Statistics" method="get">
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+

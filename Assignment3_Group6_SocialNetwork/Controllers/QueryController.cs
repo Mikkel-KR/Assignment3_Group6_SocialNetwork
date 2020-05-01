@@ -20,18 +20,21 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
             _queryService = queryService;
         }
 
+        // Display query-choices: Feed or Wall
         public IActionResult Index()
         {
+
+
             return View();
         }
 
-        public IActionResult Feed(string logged_in_user)
+        public IActionResult Feed(string logged_in_user_id)
         {
             // Get logged-in user
-            //var user = _userService.Get(logged_in_user);
+            //var user = _userService.Get(logged_in_user_id);
 
             // Get posts in feed
-            //var feedPosts = _queryService.GetFeed(logged_in_user);
+            //var feedPosts = _queryService.GetFeed(logged_in_user_id);
 
             var user = new User()
             {
