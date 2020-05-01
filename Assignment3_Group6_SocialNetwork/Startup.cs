@@ -35,6 +35,7 @@ namespace Assignment3_Group6_SocialNetwork
             //Add singleton services
             services.AddSingleton<IUserService, UserService>();
             services.AddScoped<IQueryService, QueryService>();
+            services.AddScoped<ICreateService, CreateService>();
 
             services.AddControllersWithViews();
         }

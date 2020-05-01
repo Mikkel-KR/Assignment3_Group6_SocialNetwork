@@ -12,10 +12,12 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
 {
     public class CreateController : Controller
     {
+        private ICreateService _createService;
         private IUserService _userService;
-        public CreateController(IUserService userService)
+        public CreateController(IUserService userService, ICreateService createService)
         {
             _userService = userService;
+            _createService = createService;
         }
 
         public IActionResult Index()
@@ -59,25 +61,24 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
         public IActionResult PublishPost(Post post)
         {
             var user = _userService.Get(post.AuthorId);
-            post.IsPublic = post.CircleId == "Public";
             post.CreationTime = DateTime.Now;
-            
 
-            user.Posts.Add(post);
-            
-            _userService.Update(user.Id, user);
+            var result = _createService.CreatePost(post.AuthorId, post.Content, post.Type, post.CircleId);
+
+            if (!result)
+                return View();
 
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult CreateComment(string postAutherId, string postId, string commentAuthorId)
+        public IActionResult CreateComment(string postAuthorId, string postId, string commentAuthorId)
         {
             var comment = new Comment();
             var vm = new CommentViewModel()
             {
                 Comment = comment,
                 CommentAuthorId = commentAuthorId,
-                PostAuthorId = postAutherId,
+                PostAuthorId = postAuthorId,
                 PostId = postId
             };
 
@@ -89,18 +90,11 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateComment(CommentViewModel vm)
         {
-            var postUser = _userService.Get(vm.PostAuthorId);
-            var commentUser = _userService.Get(vm.CommentAuthorId);
-            var post = postUser.Posts.Find(p => p.Id == vm.PostId);
+            var result = _createService.CreateComment(vm.PostAuthorId, vm.PostId, vm.CommentAuthorId, vm.Comment);
 
-            vm.Comment.AuthorId = commentUser.Id;
-            vm.Comment.AuthorName = commentUser.UserName;
-            vm.Comment.CreationTime = DateTime.Now;
-
-            post.Comments.Add(vm.Comment);
-
-            _userService.Update(postUser.Id, postUser);
-
+            if (!result)
+                return View();
+            
             return RedirectToAction(nameof(Index));
         }
 

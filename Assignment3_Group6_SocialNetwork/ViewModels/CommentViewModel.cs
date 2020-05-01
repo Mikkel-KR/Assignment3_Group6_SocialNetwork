@@ -11,6 +11,6 @@ namespace Assignment3_Group6_SocialNetwork.ViewModels
         public string CommentAuthorId { get; set; }
         public string PostId { get; set; }
         public string PostAuthorId { get; set; }
-        public Comment Comment { get; set; }
+        public string Comment { get; set; }
     }
 }
