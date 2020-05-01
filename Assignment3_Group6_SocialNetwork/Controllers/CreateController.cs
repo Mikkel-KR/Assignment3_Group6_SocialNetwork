@@ -60,6 +60,8 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
         {
             var user = _userService.Get(post.AuthorId);
             post.IsPublic = post.CircleId == "Public";
+            post.CreationTime = DateTime.Now;
+            
 
             user.Posts.Add(post);
             
@@ -67,6 +69,40 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        
+
+        public IActionResult CreateComment(string postAutherId, string postId, string commentAuthorId)
+        {
+            var comment = new Comment();
+            var vm = new CommentViewModel()
+            {
+                Comment = comment,
+                CommentAuthorId = commentAuthorId,
+                PostAuthorId = postAutherId,
+                PostId = postId
+            };
+
+            return View(vm);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateComment(CommentViewModel vm)
+        {
+            var postUser = _userService.Get(vm.PostAuthorId);
+            var commentUser = _userService.Get(vm.CommentAuthorId);
+            var post = postUser.Posts.Find(p => p.Id == vm.PostId);
+
+            vm.Comment.AuthorId = commentUser.Id;
+            vm.Comment.AuthorName = commentUser.UserName;
+            vm.Comment.CreationTime = DateTime.Now;
+
+            post.Comments.Add(vm.Comment);
+
+            _userService.Update(postUser.Id, postUser);
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
