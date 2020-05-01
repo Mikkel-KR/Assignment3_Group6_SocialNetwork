@@ -20,7 +20,8 @@ namespace Assignment3_Group6_SocialNetwork.Services
             List<Post> feedPosts = new List<Post>();
 
             var thisUser = _userService.Get(loggedInUserId);
-            feedPosts.AddRange(thisUser.Posts);
+
+            feedPosts.AddRange(thisUser.Posts); // Add own posts
 
             //var followingUserIds = thisUser.FollowingUserIds;
             //List<User> followingUsers = new List<User>();
@@ -29,14 +30,17 @@ namespace Assignment3_Group6_SocialNetwork.Services
             //    followingUsers.Add(_userService.Get(followingUserId));
             //}
 
+            // Get all users which loggedInUser follows
             var followingUsers = _userService.GetAll(user => thisUser.FollowingUserIds.Contains(user.Id));
-
-            var circleIds = thisUser.Circles.Select(circle => circle.Id).ToList();
 
             foreach(var followingUser in followingUsers)
             {
-                //Add Posts
-                feedPosts.AddRange(followingUser.Posts.Where(post => post.CircleId.ToLower() == "public" || circleIds.Contains(post.CircleId)));
+                // Get all circle-Ids (from followingUser) for which loggedInUser is a member (a part of)
+                var circleIds = followingUser.Circles.Where(circle => circle.MemberIds.Contains(thisUser.Id))
+                    .Select(circle => circle.Id);
+
+                // Add all posts to feed where loggedInUser has access (via circleIds)
+                feedPosts.AddRange(followingUser.Posts.Where(post => post.IsPublic || circleIds.Contains(post.CircleId))); // Add other posts
             }
 
             return feedPosts.OrderByDescending(post => post.CreationTime).ToList();
@@ -47,15 +51,17 @@ namespace Assignment3_Group6_SocialNetwork.Services
             List<Post> wallPosts = new List<Post>();
 
             var owner = _userService.Get(ownerId);
+            var guest = _userService.Get(guestId);
 
             if (ownerId == guestId)
                 return owner.Posts;
 
-            var guest = _userService.Get(guestId);
-            var guestCircleIds = guest.Circles.Select(circle => circle.Id).ToList();
+            var circleIds = owner.Circles.Where(circle => circle.MemberIds.Contains(guest.Id))
+                .Select(circle => circle.Id);
 
-            return owner.Posts.Where(post => post.CircleId.ToLower() == "public" || guestCircleIds.Contains(post.CircleId))
-                .OrderByDescending(post => post.CreationTime).ToList();
+            wallPosts.AddRange(owner.Posts.Where(post => post.IsPublic || circleIds.Contains(post.CircleId)));
+
+            return wallPosts.OrderByDescending(post => post.CreationTime).ToList();
 
         }
     }

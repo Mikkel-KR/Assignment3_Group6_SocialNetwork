@@ -8,20 +8,56 @@ namespace Assignment3_Group6_SocialNetwork.Services
 {
     public class DbSeeder
     {
+
         public static List<User> GetUsers()
         {
             return new List<User>()
             {
                 new User()
                 {
-                    UserName = "Anton",
+                    UserName = "Mikkel",
                     Gender = 'm',
-                    Age = 26,
+                    Age = 24,
+                },
+                new User()
+                {
+                    UserName = "Jeppe",
+                    Gender = 'm',
+                    Age = 24
+                },
+                new User()
+                {
+                    UserName = "Magnus",
+                    Gender = 'm',
+                    Age = 22
                 }
             };
         }
 
-        public static List<Post> GetPostsAnton(string antonId)
+        public static List<Post> GetPosts(string userName, string id)
+        {
+            switch (userName)
+            {
+                case "Mikkel":
+                {
+                    return GetPostsMikkel(id);
+                }
+                case "Jeppe":
+                {
+                    return GetPostsJeppe(id);
+                }
+                case "Magnus":
+                {
+                    return GetPostsMagnus(id);
+                }
+                default:
+                {
+                    return new System.Collections.Generic.List<Post>();
+                }
+            }
+        }
+
+        private static List<Post> GetPostsMikkel(string userId)
         {
             return new List<Post>()
             {
@@ -33,7 +69,12 @@ namespace Assignment3_Group6_SocialNetwork.Services
             };
         }
 
-        public static List<Post> GetPostsJens()
+        public static List<Post> GetPostsJeppe(string userId)
+        {
+            return new System.Collections.Generic.List<Post>();
+        }
+
+        public static List<Post> GetPostsMagnus(string userId)
         {
             return new System.Collections.Generic.List<Post>();
         }
