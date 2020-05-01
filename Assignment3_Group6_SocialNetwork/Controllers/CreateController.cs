@@ -17,6 +17,11 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
         {
             _userService = userService;
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
         
         public IActionResult PublishPost(string userId)
         {
@@ -51,9 +56,16 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PublishPost(Post post)
+        public IActionResult PublishPost(Post post)
         {
+            var user = _userService.Get(post.AuthorId);
+            post.IsPublic = post.CircleId == "Public";
+
+            user.Posts.Add(post);
             
+            _userService.Update(user.Id, user);
+
+            return RedirectToAction(nameof(Index));
         }
         
     }
