@@ -67,14 +67,15 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult CreateComment(string postAuthorId, string postId, string commentAuthorId, string queryType)
+        public IActionResult CreateComment(string postAuthorId, string postId, string commentAuthorId, string queryType, string wallOwnerId = "Default")
         {
            var vm = new CommentViewModel()
             {
                 CommentAuthorId = commentAuthorId,
                 PostAuthorId = postAuthorId,
                 PostId = postId,
-                QueryType = queryType
+                QueryType = queryType,
+                WallOwnerId = wallOwnerId
             };
 
             return View(vm);
@@ -90,12 +91,15 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
             if (!result)
                 return View();
 
+            // Route back to correct feed/wall (uses QueryType)
             if(vm.QueryType == "Feed")
-                return RedirectToAction(controllerName: "Query", actionName: vm.QueryType, routeValues: vm.PostAuthorId);
+                return RedirectToAction(controllerName: "Query", actionName: "Feed", 
+                    routeValues: new {logged_in_user_id = vm.CommentAuthorId});
             else if (vm.QueryType == "Wall")
-                return RedirectToAction(controllerName: "Query", actionName: "Wall", routeValues: vm.PostAuthorId);
-            else
-                return View();
+                return RedirectToAction(controllerName: "Query", actionName: "Wall", 
+                    routeValues: new { user_id = vm.WallOwnerId, guest_id = vm.CommentAuthorId});
+
+            return View();
         }
     }
 }

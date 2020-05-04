@@ -35,6 +35,9 @@ namespace Assignment3_Group6_SocialNetwork.Services
 
             foreach(var followingUser in followingUsers)
             {
+                if (followingUser.BlockedUserIds.Contains(thisUser.Id))
+                    continue; //If feed-owner has been blocked from the user he's following --> Jump to next followingUser (Nothing to see)
+
                 // Get all circle-Ids (from followingUser) for which loggedInUser is a member (a part of)
                 var circleIds = followingUser.Circles.Where(circle => circle.MemberIds.Contains(thisUser.Id))
                     .Select(circle => circle.Id);

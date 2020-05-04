@@ -15,5 +15,13 @@ namespace Assignment3_Group6_SocialNetwork.ViewModels
         public string PostAuthorId { get; set; }
         public string Comment { get; set; }
         public string QueryType { get; set; }
+        public string WallOwnerId { get; set; }
+    }
+
+    public class QueryInfo
+    {
+        public string QueryType { get; set; }
+        public string OwnerId { get; set; } //Owner of wall/feed
+        public string GuestId { get; set; } //Only for wall-query
     }
 }

@@ -37,7 +37,7 @@
             {
                 <td><img src="@feedPost.Content" style="max-height: 200px" /></td>
             }
-            else //type = "text"
+            else //type = "Text"
             {
                 <td>@feedPost.Content</td>
             }
@@ -56,7 +56,6 @@
                                 Author: @comment.AuthorName
                             </span>
                         </li>
-                        @*<li style="font-size: 10px"><span class="font-weight-light">Created: @comment.CreationTime.ToString("F")</span></li>*@
                     }
                 </ul>
                 <a asp-controller="Create" asp-action="CreateComment"
