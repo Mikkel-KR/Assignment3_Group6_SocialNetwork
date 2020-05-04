@@ -15,10 +15,16 @@ namespace Assignment3_Group6_SocialNetwork.Services
 
         public User Create(User user);
 
+        public List<User> CreateRange(List<User> users);
+
         public void Update(string id, User userIn);
 
         public void Remove(User userIn);
 
         public void Remove(string id);
+
+        public void RemoveRange(List<User> usersIn);
+
+        public void RemoveRange(List<string> userIds);
     }
 }

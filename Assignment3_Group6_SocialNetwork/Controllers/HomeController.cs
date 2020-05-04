@@ -42,33 +42,24 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
         public IActionResult PopulateDatabase()
         {
             //Deleting everything in database before populating the database
-            
+            var usersInDb = _userService.GetAll();
+            if(usersInDb.Count > 0)
+                _userService.RemoveRange(usersInDb);
+
             /***************************************************************/
             var users = DbSeeder.GetUsers();
 
-            foreach (var user in users)
-            {
-                var createdUser = _userService.Create(user);
-
-                var posts = DbSeeder.GetPosts(createdUser.UserName, createdUser.Id);
-
-                foreach (var post in posts)
-                {
-                    _createService.CreatePost(createdUser.Id, post.Content, post.Type, post.CircleId)
-                }
-
-                _createService.CreatePost(createdUser.Id, "Hej", "text", "Public")
-
-
-                //_createService.CreatePost(user.Id, )
-            }
-
+            _userService.CreateRange(users);
+            
             return View("Index");
         }
 
         public IActionResult ClearDatabase()
         {
-            
+            var usersInDb = _userService.GetAll();
+            if (usersInDb.Count > 0)
+                _userService.RemoveRange(usersInDb);
+
             return View("Index");
         }
     }

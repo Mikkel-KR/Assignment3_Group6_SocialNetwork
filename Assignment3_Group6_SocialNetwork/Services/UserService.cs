@@ -26,11 +26,6 @@ namespace Assignment3_Group6_SocialNetwork.Services
         public List<User> GetAll(Expression<Func<User, bool>> filter) =>
             _users.Find(filter).ToList();
 
-        public List<User> GAF() =>
-        _users.Fin
-        //public List<User> GettAllFollowers() =>
-        // _users.UpdateOne()
-
         public User Get(string id) =>
             _users.Find(user => user.Id == id).FirstOrDefault();
 
@@ -38,6 +33,12 @@ namespace Assignment3_Group6_SocialNetwork.Services
         {
             _users.InsertOne(user);
             return user;
+        }
+
+        public List<User> CreateRange(List<User> users)
+        {
+            _users.InsertMany(users);
+            return users;
         }
 
         public void Update(string id, User userIn) =>
@@ -48,5 +49,16 @@ namespace Assignment3_Group6_SocialNetwork.Services
 
         public void Remove(string id) =>
             _users.DeleteOne(user => user.Id == id);
+
+        public void RemoveRange(List<User> usersIn)
+        {
+            var usersInIds = usersIn.Select(u => u.Id);
+            _users.DeleteMany(user => usersInIds.Contains(user.Id));
+        }
+
+        public void RemoveRange(List<string> userIds)
+        {
+            _users.DeleteMany(user => userIds.Contains(user.Id));
+        }
     }
 }

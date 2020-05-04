@@ -23,26 +23,16 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
         // Display query-choices: Feed or Wall
         public IActionResult Index()
         {
-
-
             return View();
         }
 
         public IActionResult Feed(string logged_in_user_id)
         {
             // Get logged-in user
-            //var user = _userService.Get(logged_in_user_id);
+            var user = _userService.Get(logged_in_user_id);
 
             // Get posts in feed
-            //var feedPosts = _queryService.GetFeed(logged_in_user_id);
-
-            var user = new User()
-            {
-                Id = "Bson3",
-                UserName = "DemonSlayer64"
-            };
-
-            var feedPosts = GetExamplePosts();
+            var feedPosts = _queryService.GetFeed(logged_in_user_id);
 
             var vm = new FeedViewModel(feedPosts, user);
 
@@ -52,22 +42,11 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
         public IActionResult Wall(string user_id, string guest_id)
         {
             //// Get Users
-            //var owner = _userService.Get(user_id);
-            //var guest = _userService.Get(guest_id);
+            var owner = _userService.Get(user_id);
+            var guest = _userService.Get(guest_id);
 
             //// Get posts on wall
-            //var wallPosts = _queryService.GetWall(user_id, guest_id);
-
-            var owner = new User()
-            {
-                UserName = "DemonBoi3"
-            };
-            var guest = new User()
-            {
-                UserName = "GuestBoi44"
-            };
-
-            var wallPosts = GetExamplePosts();
+            var wallPosts = _queryService.GetWall(user_id, guest_id);
 
             var vm = new WallViewModel(wallPosts, owner, guest);
 

@@ -10,7 +10,7 @@ namespace Assignment3_Group6_SocialNetwork.Services
     public class DbSeeder
     {
 
-        public static List<User> GetUsersNew()
+        public static List<User> GetUsers()
         {
             // Users Ids
             var userIdMikkel = ObjectId.GenerateNewId().ToString();
@@ -21,10 +21,14 @@ namespace Assignment3_Group6_SocialNetwork.Services
             // Circle Ids
             var circleId1 = ObjectId.GenerateNewId().ToString();
             var circleId2 = ObjectId.GenerateNewId().ToString();
+            var circleId3 = ObjectId.GenerateNewId().ToString();
+            var circleId4 = ObjectId.GenerateNewId().ToString();
 
             return new List<User>()
             {
+                /**********************/
                 /**** USER: MIKKEL ****/
+                /**********************/
                 new User()
                 {
                     Id = userIdMikkel,
@@ -103,104 +107,238 @@ namespace Assignment3_Group6_SocialNetwork.Services
                         }
                     }
                 },
+
+                /*********************/
+                /**** USER: JEPPE ****/
+                /*********************/
                 new User()
                 {
-                    Id = userIdMikkel,
+                    Id = userIdJeppe,
 
                     // User Information
                     UserName = "Jeppe",
                     Gender = 'm',
-                    Age = 24
-
-
-                },
-                new User()
-                {
-                    UserName = "Magnus",
-                    Gender = 'm',
-                    Age = 22
-                }
-            };
-        }
-
-        public static List<User> GetUsers()
-        {
-            return new List<User>()
-            {
-                new User()
-                {
-                    UserName = "Mikkel",
-                    Gender = 'm',
                     Age = 24,
+
+                    // Owned Circles
+                    Circles = new List<Circle>()
+                    {
+                        new Circle()
+                        {
+                            Id = circleId2,
+                            CircleName = "PersonalCircle",
+                            MemberIds = new List<string>() {userIdPoul}
+                        }
+                    },
+
+                    BlockedUserIds = new List<string>() { },
+                    FollowingUserIds = new List<string>() { userIdJeppe, userIdMagnus, userIdPoul },
+
+                    Posts = new List<Post>()
+                    {
+                        new Post()
+                        {
+                            Id = ObjectId.GenerateNewId().ToString(),
+                            AuthorId = userIdJeppe,
+                            AuthorName = "Jeppe",
+                            IsPublic = true,
+                            Type = "Image",
+                            Content = "https://miro.medium.com/max/1400/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg", //Image of baby-yoda
+                            CreationTime = DateTime.Now.AddDays(2),
+
+                            Comments = new List<Comment>()
+                            {
+                                new Comment()
+                                {
+                                    AuthorId = userIdMikkel,
+                                    AuthorName = "Mikkel",
+                                    Content = "Nice picture!",
+                                    CreationTime = DateTime.Now.AddDays(2).AddHours(1).AddMinutes(21),
+                                }
+                            }
+                        },
+
+                        new Post()
+                        {
+                            Id = ObjectId.GenerateNewId().ToString(),
+                            AuthorId = userIdJeppe,
+                            AuthorName = "Jeppe",
+                            IsPublic = false,
+                            CircleId = circleId2,
+                            Type = "Text",
+                            Content = "Hey, what are you doing right now?",
+                            CreationTime = DateTime.Now.AddMinutes(35),
+
+                            Comments = new List<Comment>()
+                            {
+                                new Comment()
+                                {
+                                    AuthorId = userIdPoul,
+                                    AuthorName = "Poul",
+                                    Content = "Im doing fine, you wanna take a walk soon?",
+                                    CreationTime = DateTime.Now.AddHours(1).AddMinutes(2),
+                                },
+                                new Comment()
+                                {
+                                    AuthorId = userIdJeppe,
+                                    AuthorName = "Jeppe",
+                                    Content = "Nah, maybe later...",
+                                    CreationTime = DateTime.Now.AddHours(1).AddMinutes(15),
+                                }
+                            }
+                        }
+                    }
                 },
+                /**********************/
+                /**** USER: MAGNUS ****/
+                /**********************/
                 new User()
                 {
-                    UserName = "Jeppe",
-                    Gender = 'm',
-                    Age = 24
-                },
-                new User()
-                {
+                    Id = userIdMagnus,
+
+                    // User Information
                     UserName = "Magnus",
                     Gender = 'm',
-                    Age = 22
+                    Age = 22,
+
+                    // Owned Circles
+                    Circles = new List<Circle>()
+                    {
+                        new Circle()
+                        {
+                            Id = circleId3,
+                            CircleName = "CircleWithJeppe",
+                            MemberIds = new List<string>() {userIdJeppe}
+                        },
+                        new Circle()
+                        {
+                            Id = circleId4,
+                            CircleName = "CircleWithMikkel",
+                            MemberIds = new List<string>() {userIdMikkel}
+                        }
+                    },
+
+                    BlockedUserIds = new List<string>() { },
+                    FollowingUserIds = new List<string>() { userIdJeppe, userIdMagnus, userIdPoul },
+
+                    Posts = new List<Post>()
+                    {
+                        new Post()
+                        {
+                            Id = ObjectId.GenerateNewId().ToString(),
+                            AuthorId = userIdMagnus,
+                            AuthorName = "Magnus",
+                            IsPublic = false,
+                            CircleId = circleId3,
+                            Type = "Image",
+                            Content = "https://media.wired.com/photos/598e35994ab8482c0d6946e0/master/w_2560%2Cc_limit/phonepicutres-TA.jpg", //Image of guy on mountain
+                            CreationTime = DateTime.Now.AddDays(1),
+
+                            Comments = new List<Comment>()
+                            {
+                                new Comment()
+                                {
+                                    AuthorId = userIdJeppe,
+                                    AuthorName = "Jeppe",
+                                    Content = "I like it! Wauw!",
+                                    CreationTime = DateTime.Now.AddDays(1).AddHours(12).AddMinutes(45),
+                                }
+                            }
+                        },
+
+                        new Post()
+                        {
+                            Id = ObjectId.GenerateNewId().ToString(),
+                            AuthorId = userIdMagnus,
+                            AuthorName = "Magnus",
+                            IsPublic = false,
+                            CircleId = circleId4,
+                            Type = "Text",
+                            Content = "Whatssss up!!!???",
+                            CreationTime = DateTime.Now.AddMinutes(2),
+
+                            Comments = new List<Comment>()
+                            {
+                                new Comment()
+                                {
+                                    AuthorId = userIdMikkel,
+                                    AuthorName = "Mikkel",
+                                    Content = "Whaszaaaaa!",
+                                    CreationTime = DateTime.Now.AddMinutes(5),
+                                },
+                            }
+                        }
+                    }
+
+                },
+
+                /********************/
+                /**** USER: POUL ****/
+                /********************/
+                new User()
+                {
+                    Id = userIdPoul,
+
+                    // User Information
+                    UserName = "Poul",
+                    Gender = 'm',
+                    Age = 29,
+
+                    // Owned Circles
+                    Circles = new List<Circle>() {},
+
+                    BlockedUserIds = new List<string>() { },
+                    FollowingUserIds = new List<string>() { userIdMikkel, userIdJeppe, userIdMagnus },
+
+                    Posts = new List<Post>()
+                    {
+                        new Post()
+                        {
+                            Id = ObjectId.GenerateNewId().ToString(),
+                            AuthorId = userIdPoul,
+                            AuthorName = "Poul",
+                            IsPublic = true,
+                            Type = "Text",
+                            Content = "Hello followers, any ideas for what to do in Aarhus??",
+                            CreationTime = DateTime.Now.AddHours(5),
+
+                            Comments = new List<Comment>()
+                            {
+                                new Comment()
+                                {
+                                    AuthorId = userIdJeppe,
+                                    AuthorName = "Jeppe",
+                                    Content = "Go to AROS! Its very nice ;-)",
+                                    CreationTime = DateTime.Now.AddHours(6).AddMinutes(45),
+                                }
+                            }
+                        },
+
+                        new Post()
+                        {
+                            Id = ObjectId.GenerateNewId().ToString(),
+                            AuthorId = userIdPoul,
+                            AuthorName = "Poul",
+                            IsPublic = true,
+                            CircleId = circleId4,
+                            Type = "Text",
+                            Content = "Come on... I need ideas...",
+                            CreationTime = DateTime.Now.AddHours(6),
+
+                            Comments = new List<Comment>()
+                            {
+                                new Comment()
+                                {
+                                    AuthorId = userIdJeppe,
+                                    AuthorName = "Jeppe",
+                                    Content = "I just wrote an idea on your previous post dude!",
+                                    CreationTime = DateTime.Now.AddHours(6).AddMinutes(51),
+                                },
+                            }
+                        }
+                    }
                 }
             };
         }
-
-        public static List<Post> GetPosts(string userName, string id)
-        {
-            switch (userName)
-            {
-                case "Mikkel":
-                {
-                    return GetPostsMikkel(userName, id);
-                }
-                case "Jeppe":
-                {
-                    return GetPostsJeppe(id);
-                }
-                case "Magnus":
-                {
-                    return GetPostsMagnus(id);
-                }
-                default:
-                {
-                    return new System.Collections.Generic.List<Post>();
-                }
-            }
-        }
-
-        private static List<Post> GetPostsMikkel(string userName, string userId)
-        {
-            return new List<Post>()
-            {
-                new Post()
-                {
-                    AuthorId = userId,
-                    AuthorName = userName,
-
-
-
-                }
-            };
-        }
-
-        public static List<Post> GetPostsJeppe(string userId)
-        {
-            return new System.Collections.Generic.List<Post>();
-        }
-
-        public static List<Post> GetPostsMagnus(string userId)
-        {
-            return new System.Collections.Generic.List<Post>();
-        }
-
-        public static List<Circle> GetCirclesAnton()
-        {
-            return new System.Collections.Generic.List<Circle>();
-        }
-
-
     }
 }

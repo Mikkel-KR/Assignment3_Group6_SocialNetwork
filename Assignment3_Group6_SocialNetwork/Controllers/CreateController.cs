@@ -30,6 +30,9 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
             var post = new Post {AuthorId = userId};
             var user = _userService.Get(userId);
 
+            if (user == null)
+                return RedirectToAction("Index");
+
             var circles = new List<KeyValuePair<string, string>>();
 
             foreach (var circle in user.Circles)
@@ -52,25 +55,26 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PublishPost(Post post)
+        public IActionResult PublishPost(PostViewModel postVm)
         {
-            var user = _userService.Get(post.AuthorId);
+            var post = postVm.Post;
 
             var result = _createService.CreatePost(post.AuthorId, post.Content, post.Type, post.CircleId, post.IsPublic);
 
             if (!result)
-                return View();
+                return View(postVm);
 
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult CreateComment(string postAuthorId, string postId, string commentAuthorId)
+        public IActionResult CreateComment(string postAuthorId, string postId, string commentAuthorId, string queryType)
         {
            var vm = new CommentViewModel()
             {
                 CommentAuthorId = commentAuthorId,
                 PostAuthorId = postAuthorId,
-                PostId = postId
+                PostId = postId,
+                QueryType = queryType
             };
 
             return View(vm);
@@ -85,8 +89,13 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
 
             if (!result)
                 return View();
-            
-            return RedirectToAction(nameof(Index));
+
+            if(vm.QueryType == "Feed")
+                return RedirectToAction(controllerName: "Query", actionName: vm.QueryType, routeValues: vm.PostAuthorId);
+            else if (vm.QueryType == "Wall")
+                return RedirectToAction(controllerName: "Query", actionName: "Wall", routeValues: vm.PostAuthorId);
+            else
+                return View();
         }
     }
 }

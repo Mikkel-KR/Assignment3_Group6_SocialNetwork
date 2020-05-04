@@ -57,9 +57,15 @@
                             </span>
                         </li>
                         @*<li style="font-size: 10px"><span class="font-weight-light">Created: @comment.CreationTime.ToString("F")</span></li>*@
-                    }i
+                    }
                 </ul>
-                <a asp-controller="Create" asp-action="Index" asp-route="@feedPost.Id">Add comment</a> @* Skal udskiftes med Create/PublishComment *@
+                <a asp-controller="Create" asp-action="CreateComment"
+                   asp-route-postId="@feedPost.Id"
+                   asp-route-postAuthorId="@feedPost.AuthorId"
+                   asp-route-commentAuthorId="@Model.LoggedInUser.Id"
+                   asp-route-queryType="Feed">
+                    Add comment
+                </a>
             </td>
         </tr>
     }

@@ -12,6 +12,8 @@
         <form asp-action="PublishPost" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Post.AuthorId" />
+            <input type="hidden" asp-for="UserName" />
+            <input type="hidden" asp-for="Circles" />
             <div class="form-group">
                 <label asp-for="Post.CircleId" class="control-label"></label>
                 <select asp-for="Post.CircleId" class="form-control" asp-items="Model.Circles"></select>
