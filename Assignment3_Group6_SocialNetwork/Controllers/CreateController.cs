@@ -33,19 +33,18 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
             if (user == null)
                 return RedirectToAction("Index");
 
-            var circles = new List<KeyValuePair<string, string>>();
+            var circles = new Dictionary<string, string>();
 
             foreach (var circle in user.Circles)
             {
-                circles.Add(new KeyValuePair<string, string>(
-                    circle.Id,
-                    circle.CircleName
-                    ));
+                circles.Add(circle.Id, circle.CircleName);
             }
 
             var vm = new PostViewModel()
             {
-                Circles = new SelectList(circles),
+                Circles = new SelectList(circles.Select(x=>new {Value = x.Key, Text = x.Value}),
+                    "Value",
+                    "Text"),
                 UserName = user.UserName,
                 AuthorId = user.Id
             };
@@ -61,7 +60,7 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
                 postVm.AuthorId, 
                 postVm.PostContent, 
                 postVm.PostType, 
-                postVm.SelectedCircle.Key, 
+                postVm.SelectedCircle, 
                 postVm.IsPublic
                 );
 
