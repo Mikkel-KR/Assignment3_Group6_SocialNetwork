@@ -6,7 +6,7 @@
 
 <h1>Feed</h1>
 <ul>
-    <li>Owner: @Model.LoggedInUser.UserName</li>
+    <li>Owner: @Model.LoggedInUser.UserName (Age: @Model.LoggedInUser.Age, Gender: @Model.LoggedInUser.Gender)</li>
     <li><a asp-controller="Create" asp-action="PublishPost" asp-route-userId="@Model.LoggedInUser.Id">Publish new post</a></li>
 </ul>
 
@@ -71,4 +71,6 @@
     }
     </tbody>
 </table>
+
+<a asp-action="Index">Go back...</a>
 

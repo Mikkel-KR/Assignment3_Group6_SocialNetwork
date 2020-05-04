@@ -15,7 +15,7 @@ namespace Assignment3_Group6_SocialNetwork.Models
         
         // UserInformation
         public string UserName { get; set; }
-        public char Gender { get; set; }
+        public string Gender { get; set; }
         public int Age { get; set; }
 
         // List of Circles

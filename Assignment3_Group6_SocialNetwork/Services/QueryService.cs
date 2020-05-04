@@ -23,13 +23,6 @@ namespace Assignment3_Group6_SocialNetwork.Services
 
             feedPosts.AddRange(thisUser.Posts); // Add own posts
 
-            //var followingUserIds = thisUser.FollowingUserIds;
-            //List<User> followingUsers = new List<User>();
-            //foreach (var followingUserId in followingUserIds)
-            //{
-            //    followingUsers.Add(_userService.Get(followingUserId));
-            //}
-
             // Get all users which loggedInUser follows
             var followingUsers = _userService.GetAll(user => thisUser.FollowingUserIds.Contains(user.Id));
 
@@ -54,6 +47,10 @@ namespace Assignment3_Group6_SocialNetwork.Services
             List<Post> wallPosts = new List<Post>();
 
             var owner = _userService.Get(ownerId);
+
+            if (owner.BlockedUserIds.Contains(guestId))
+                return wallPosts; //Empty
+
             var guest = _userService.Get(guestId);
 
             if (ownerId == guestId)

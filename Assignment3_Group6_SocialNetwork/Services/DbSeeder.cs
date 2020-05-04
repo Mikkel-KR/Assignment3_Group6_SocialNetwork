@@ -35,7 +35,7 @@ namespace Assignment3_Group6_SocialNetwork.Services
 
                     // User Information
                     UserName = "Mikkel",
-                    Gender = 'm',
+                    Gender = "male",
                     Age = 24,
 
                     // Owned Circles
@@ -117,7 +117,7 @@ namespace Assignment3_Group6_SocialNetwork.Services
 
                     // User Information
                     UserName = "Jeppe",
-                    Gender = 'm',
+                    Gender = "male",
                     Age = 24,
 
                     // Owned Circles
@@ -132,7 +132,7 @@ namespace Assignment3_Group6_SocialNetwork.Services
                     },
 
                     BlockedUserIds = new List<string>() { },
-                    FollowingUserIds = new List<string>() { userIdJeppe, userIdMagnus, userIdPoul },
+                    FollowingUserIds = new List<string>() { userIdMikkel, userIdMagnus, userIdPoul },
 
                     Posts = new List<Post>()
                     {
@@ -198,7 +198,7 @@ namespace Assignment3_Group6_SocialNetwork.Services
 
                     // User Information
                     UserName = "Magnus",
-                    Gender = 'm',
+                    Gender = "male",
                     Age = 22,
 
                     // Owned Circles
@@ -281,7 +281,7 @@ namespace Assignment3_Group6_SocialNetwork.Services
 
                     // User Information
                     UserName = "Poul",
-                    Gender = 'm',
+                    Gender = "male",
                     Age = 29,
 
                     // Owned Circles
@@ -313,7 +313,6 @@ namespace Assignment3_Group6_SocialNetwork.Services
                                 }
                             }
                         },
-
                         new Post()
                         {
                             Id = ObjectId.GenerateNewId().ToString(),
@@ -334,6 +333,27 @@ namespace Assignment3_Group6_SocialNetwork.Services
                                     Content = "I just wrote an idea on your previous post dude!",
                                     CreationTime = DateTime.Now.AddHours(6).AddMinutes(51),
                                 },
+                            }
+                        },
+                        new Post()
+                        {
+                            Id = ObjectId.GenerateNewId().ToString(),
+                            AuthorId = userIdPoul,
+                            AuthorName = "Poul",
+                            IsPublic = true,
+                            Type = "Image",
+                            Content = "https://aimshop.dk/billeder/show/69203-super-mario-bros-mario-bamse-19-cm",
+                            CreationTime = DateTime.Now.AddHours(8),
+
+                            Comments = new List<Comment>()
+                            {
+                                new Comment()
+                                {
+                                    AuthorId = userIdMagnus,
+                                    AuthorName = "Magnus",
+                                    Content = "Mario Life!",
+                                    CreationTime = DateTime.Now.AddHours(9).AddMinutes(33),
+                                }
                             }
                         }
                     }

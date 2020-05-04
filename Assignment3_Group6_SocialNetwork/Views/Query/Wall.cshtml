@@ -6,8 +6,8 @@
 
 <h1>Wall</h1>
 <ul>
-    <li>Owner: @Model.OwnerUser.UserName</li>
-    <li>Guest: @Model.GuestUser.UserName</li>
+    <li>Owner: @Model.OwnerUser.UserName (Age: @Model.OwnerUser.Age, Gender: @Model.OwnerUser.Gender)</li>
+    <li>Guest: @Model.GuestUser.UserName (Age: @Model.GuestUser.Age, Gender: @Model.GuestUser.Gender)</li>
 </ul>
 
 <table class="table table-bordered table-striped">
@@ -73,3 +73,4 @@
     </tbody>
 </table>
 
+<a asp-action="Index">Go back...</a>
