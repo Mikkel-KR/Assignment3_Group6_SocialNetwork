@@ -7,6 +7,7 @@
 <h1>Feed</h1>
 <ul>
     <li>Owner: @Model.LoggedInUser.UserName</li>
+    <li><a asp-controller="Create" asp-action="PublishPost" asp-route-userId="@Model.LoggedInUser.Id">Publish new post</a></li>
 </ul>
 
 <table class="table table-bordered table-striped">
