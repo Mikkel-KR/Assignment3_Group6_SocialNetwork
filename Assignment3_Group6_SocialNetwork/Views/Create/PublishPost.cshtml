@@ -1,11 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Publish Post";
 }
+@using System.Linq
 @using Assignment3_Group6_SocialNetwork.ViewModels
 @model Assignment3_Group6_SocialNetwork.ViewModels.PostViewModel
 
 <h2>Create new post for: @Model.UserName</h2>
-
 
 <div class="row">
     <div class="col-md-6">
@@ -13,7 +13,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="AuthorId" />
             <input type="hidden" asp-for="UserName" />
-            <input type="hidden" asp-for="SelectedCircle.Key" />
             <div class="form-group">
                 <label asp-for="SelectedCircle" class="control-label"></label>
                 <select asp-for="SelectedCircle" class="form-control" asp-items="Model.Circles"></select>
