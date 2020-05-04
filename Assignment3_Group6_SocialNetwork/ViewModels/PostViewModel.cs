@@ -10,7 +10,11 @@ namespace Assignment3_Group6_SocialNetwork.ViewModels
     public class PostViewModel
     {
         public string UserName { get; set; }
-        public Post Post { get; set; }
+        public string AuthorId { get; set; }
+        public KeyValuePair<string, string> SelectedCircle { get; set; }
+        public string PostType { get; set; }
+        public string PostContent { get; set; }
+        public bool IsPublic { get; set; }
         public SelectList Circles { get; set; }
     }
 }

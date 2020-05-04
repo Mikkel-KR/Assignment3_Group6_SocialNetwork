@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "All Registered Users";
+}
+
+@model List<User>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User Id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.UserName</td>
+            </tr>
+        }
+    </tbody>
+</table>
