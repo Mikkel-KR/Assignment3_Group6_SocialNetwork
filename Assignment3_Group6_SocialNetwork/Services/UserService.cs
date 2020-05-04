@@ -26,6 +26,11 @@ namespace Assignment3_Group6_SocialNetwork.Services
         public List<User> GetAll(Expression<Func<User, bool>> filter) =>
             _users.Find(filter).ToList();
 
+        public List<User> GAF() =>
+        _users.Fin
+        //public List<User> GettAllFollowers() =>
+        // _users.UpdateOne()
+
         public User Get(string id) =>
             _users.Find(user => user.Id == id).FirstOrDefault();
 

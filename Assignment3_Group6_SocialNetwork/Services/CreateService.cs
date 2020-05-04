@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Assignment3_Group6_SocialNetwork.Models;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace Assignment3_Group6_SocialNetwork.Services
@@ -28,7 +29,7 @@ namespace Assignment3_Group6_SocialNetwork.Services
                 AuthorId = commentUser.Id,
                 AuthorName = commentUser.UserName,
                 Content = comment,
-                CreationTime = DateTime.Now,
+                CreationTime = DateTime.Now
             };
 
             var post = user.Posts.Find(p => p.Id == postId);
@@ -43,7 +44,7 @@ namespace Assignment3_Group6_SocialNetwork.Services
             return true;
         }
 
-        public bool CreatePost(string ownerId, string content,string contentType, string circleId)
+        public bool CreatePost(string ownerId, string content, string contentType, string circleId, bool isPublic)
         {
             var user = _userService.Get(ownerId);
 
@@ -58,7 +59,9 @@ namespace Assignment3_Group6_SocialNetwork.Services
                 Comments = new List<Comment>(),
                 Content = content,
                 CreationTime = DateTime.Now,
-                Type = contentType
+                Type = contentType,
+                IsPublic = isPublic,
+                Id = ObjectId.GenerateNewId().ToString()
             };
             user.Posts.Add(post);
             _userService.Update(user.Id, user);
@@ -75,7 +78,8 @@ namespace Assignment3_Group6_SocialNetwork.Services
             user.Circles.Add(new Circle()
             {
                 CircleName = circleName,
-                MemberIds = usersToAddToCircle
+                MemberIds = usersToAddToCircle,
+                Id = ObjectId.GenerateNewId().ToString()
             });
 
             _userService.Update(ownerId, user);

@@ -16,16 +16,20 @@
                 <label asp-for="Post.CircleId" class="control-label"></label>
                 <select asp-for="Post.CircleId" class="form-control" asp-items="Model.Circles"></select>
                 <span asp-validation-for="Post.CircleId" class="text-danger"></span>
-                </div>
+            </div>
             <div class="form-group">
                 <label asp-for="Post.Type" class="control-label"></label>
                 <select asp-for="Post.Type" class="form-control" asp-items="PostTypes.GetPostTypes()"></select>
                 <span asp-validation-for="Post.Type" class="text-danger"></span>
-                </div>
+            </div>
             <div class="form-group">
                 <label asp-for="Post.Content" class="control-label"></label>
                 <input asp-for="Post.Content" class="form-control" />
                 <span asp-validation-for="Post.Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" asp-for="Post.IsPublic" />
+                <label asp-for="Post.IsPublic">Public Post</label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

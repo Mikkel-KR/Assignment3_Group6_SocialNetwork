@@ -27,14 +27,10 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
         
         public IActionResult PublishPost(string userId)
         {
-            var post = new Post();
-            post.AuthorId = userId;
+            var post = new Post {AuthorId = userId};
             var user = _userService.Get(userId);
 
-            var circles = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("Public", "Public")
-            };
+            var circles = new List<KeyValuePair<string, string>>();
 
             foreach (var circle in user.Circles)
             {
@@ -43,7 +39,6 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
                     circle.CircleName
                     ));
             }
-
 
             var vm = new PostViewModel()
             {
@@ -55,15 +50,13 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
             return View(vm);
         }
 
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult PublishPost(Post post)
         {
             var user = _userService.Get(post.AuthorId);
-            post.CreationTime = DateTime.Now;
 
-            var result = _createService.CreatePost(post.AuthorId, post.Content, post.Type, post.CircleId);
+            var result = _createService.CreatePost(post.AuthorId, post.Content, post.Type, post.CircleId, post.IsPublic);
 
             if (!result)
                 return View();
@@ -95,6 +88,5 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
             
             return RedirectToAction(nameof(Index));
         }
-
     }
 }
