@@ -48,7 +48,8 @@ namespace Assignment3_Group6_SocialNetwork.Services
         {
             var user = _userService.Get(ownerId);
 
-            if(user == null || !user.Circles.Select(s=>s.Id).Contains(circleId))
+            // User doesn't exist or the post is private and the user doesn't have the circle
+            if(user == null || (!isPublic && !user.Circles.Select(s=>s.Id).Contains(circleId)))
                 return false;
 
             var post = new Post()

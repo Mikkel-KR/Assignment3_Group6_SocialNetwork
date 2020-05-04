@@ -25,4 +25,11 @@
     </div>
 </div>
 
-<a asp-controller="Query" asp-action="Index">Cancel...</a>
+@if (Model.QueryType == "Feed")
+{
+    <a asp-controller="Query" asp-action="Feed" asp-route-logged_in_user_id="@Model.CommentAuthorId" asp>Cancel...</a>
+}
+else
+{
+    <a asp-controller="Query" asp-action="Wall" asp-route-user_id="@Model.WallOwnerId" asp-route-guest_id="@Model.CommentAuthorId" asp>Cancel...</a>
+}
