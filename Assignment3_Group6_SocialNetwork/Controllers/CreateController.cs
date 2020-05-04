@@ -46,8 +46,8 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
             var vm = new PostViewModel()
             {
                 Circles = new SelectList(circles),
-                Post = post,
-                UserName = user.UserName
+                UserName = user.UserName,
+                AuthorId = user.Id
             };
 
             return View(vm);
@@ -57,9 +57,13 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult PublishPost(PostViewModel postVm)
         {
-            var post = postVm.Post;
-
-            var result = _createService.CreatePost(post.AuthorId, post.Content, post.Type, post.CircleId, post.IsPublic);
+            var result = _createService.CreatePost(
+                postVm.AuthorId, 
+                postVm.PostContent, 
+                postVm.PostType, 
+                postVm.SelectedCircle.Key, 
+                postVm.IsPublic
+                );
 
             if (!result)
                 return View(postVm);
