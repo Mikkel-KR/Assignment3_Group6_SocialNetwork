@@ -38,7 +38,7 @@
             {
                 <td><img src="@wallPost.Content" style="max-height: 200px" /></td>
             }
-            else //type = "text"
+            else //type = "Text"
             {
                 <td>@wallPost.Content</td>
             }
@@ -57,14 +57,14 @@
                                 Author: @comment.AuthorName
                             </span>
                         </li>
-                            @*<li style="font-size: 10px"><span class="font-weight-light">Created: @comment.CreationTime.ToString("F")</span></li>*@
                     }
                 </ul>
                 <a asp-controller="Create" asp-action="CreateComment"
                    asp-route-postId="@wallPost.Id"
                    asp-route-postAuthorId="@wallPost.AuthorId"
                    asp-route-commentAuthorId="@Model.GuestUser.Id"
-                   asp-route-queryType="Wall">
+                   asp-route-queryType="Wall"
+                   asp-route-wallOwnerId="@Model.OwnerUser.Id">
                     Add comment
                 </a>
             </td>
