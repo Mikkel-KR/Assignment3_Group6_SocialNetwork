@@ -13,7 +13,7 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
 {
     public class OverviewController : Controller
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
 
         public OverviewController(IUserService userService)
         {

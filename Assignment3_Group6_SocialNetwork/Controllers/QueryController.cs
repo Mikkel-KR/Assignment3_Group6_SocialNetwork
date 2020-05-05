@@ -11,7 +11,7 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
 {
     public class QueryController : Controller
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
         private readonly IQueryService _queryService;
 
         public QueryController(IQueryService queryService, IUserService userService)

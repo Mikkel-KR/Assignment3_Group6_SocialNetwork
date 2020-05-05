@@ -12,13 +12,11 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
 {
     public class HomeController : Controller
     {
-        private IUserService _userService;
-        private ICreateService _createService;
+        private readonly IUserService _userService;
 
-        public HomeController(IUserService userService, ICreateService createService)
+        public HomeController(IUserService userService)
         {
             _userService = userService;
-            _createService = createService;
         }
 
         public IActionResult Index()

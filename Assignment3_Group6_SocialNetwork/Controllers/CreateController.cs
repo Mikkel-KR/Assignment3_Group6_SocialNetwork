@@ -12,8 +12,8 @@ namespace Assignment3_Group6_SocialNetwork.Controllers
 {
     public class CreateController : Controller
     {
-        private ICreateService _createService;
-        private IUserService _userService;
+        private readonly ICreateService _createService;
+        private readonly IUserService _userService;
         public CreateController(IUserService userService, ICreateService createService)
         {
             _userService = userService;
