@@ -11,6 +11,7 @@
             <th>Name</th>
             <th>Age</th>
             <th>Gender</th>
+            <th>Circles</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,25 @@
                 <td>@user.UserName</td>
                 <td>@user.Age</td>
                 <td>@user.Gender</td>
+                <td>
+                    <ul>
+                        @foreach (var circle in user.Circles)
+                        {
+                        <li>
+                            <b>@circle.CircleName</b><span style="font-size: 12px" class="font-weight-light"> (CircleId: @circle.Id)</span> <br/>
+                            <div>
+                                Members:
+                                <ul title="MemberIds for circle: @circle.CircleName">
+                                    @foreach (var memberId in circle.MemberIds)
+                                    {
+                                        <li style="font-size: 14px">@memberId</li>
+                                    }
+                                </ul>
+                            </div>
+                        </li>
+                        }
+                    </ul>
+                </td>
             </tr>
         }
     </tbody>
